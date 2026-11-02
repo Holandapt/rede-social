@@ -15,11 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from django.conf import settings
 from users.views.user_views import MeView
 from users.views.register_views import RegisterView
 
@@ -30,3 +32,7 @@ urlpatterns = [
     path("api/auth/refresh/", TokenRefreshView.as_view()),
     path("api/auth/me/", MeView.as_view()),
 ]
+
+# Add static and media URL patterns for development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -105,7 +105,9 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = "users.User"
 CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 
+# Media files (uploads)
 MEDIA_URL = "/media/"
+# The MEDIA_ROOT setting specifies the directory where uploaded media files will be stored.
 MEDIA_ROOT = BASE_DIR / "media"
 
 REST_FRAMEWORK = {

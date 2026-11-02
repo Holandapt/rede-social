@@ -16,3 +16,6 @@ build/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Ficheiros enviados pelos utilizadores
+backend/media/
