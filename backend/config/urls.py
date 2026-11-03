@@ -24,6 +24,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from users.views.user_views import MeView
 from users.views.register_views import RegisterView
+from users.views.change_password_views import ChangePasswordView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -31,6 +32,7 @@ urlpatterns = [
     path("api/auth/login/", TokenObtainPairView.as_view()),
     path("api/auth/refresh/", TokenRefreshView.as_view()),
     path("api/auth/me/", MeView.as_view()),
+    path("api/auth/change-password/", ChangePasswordView.as_view()),
 ]
 
 # Add static and media URL patterns for development
