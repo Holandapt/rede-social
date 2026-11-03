@@ -4,6 +4,12 @@ from rest_framework.test import APIClient
 from users.models import User
 
 
+# Usa um hasher rápido só nos testes (o PBKDF2 real é lento de propósito).
+@pytest.fixture(autouse=True)
+def fast_password_hasher(settings):
+    settings.PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
+
+
 # Senha usada pelo usuário de teste. É uma fixture para os testes a poderem receber como argumento.
 @pytest.fixture
 def password():
