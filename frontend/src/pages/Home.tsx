@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { api } from "../api/client";
 import type { User } from "../types/user";
 
@@ -31,6 +31,9 @@ export default function Home() {
     <main>
       <h1>Olá, {user.username}!</h1>
       <p>O feed de notícias aparecerá aqui.</p>
+      <p>
+        <Link to="/profile">O meu perfil</Link>
+      </p>
       <button onClick={handleLogout}>Sair</button>
     </main>
   );

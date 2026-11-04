@@ -5,7 +5,7 @@ export interface User {
   id: number; // Identificador único do usuário.
   username: string;
   email: string;
-  first_name: string;
+  name: string;
   avatar: string | null; // URL do avatar do usuário, pode ser nulo se o usuário não tiver um avatar.
 }
 
@@ -20,4 +20,10 @@ export interface RegisterPayload {
   username: string;
   email: string;
   password: string;
+}
+
+// Dados enviados para trocar a senha.
+export interface ChangePasswordPayload {
+  old_password: string;
+  new_password: string;
 }
