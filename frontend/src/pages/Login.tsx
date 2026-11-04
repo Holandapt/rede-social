@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { isAxiosError } from "axios";
 import { api } from "../api/client";
 import type { TokenPair } from "../types/user";
@@ -11,6 +11,20 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+   // Página que o utilizador queria abrir antes de ser mandado para o login.
+  const from =
+    // location.state: É o estado passado via navegação pelo React Router
+    // Como o TypeScript não sabe exatamente o formato desse state por padrão, dizemos a ele:
+    // "Trate este objeto como algo que possui opcionalmente uma propriedade from
+    // Indica que o state pode vir vazio (null) caso o usuário tenha acessado a página de
+    // login diretamente pela URL (digitando no navegador), e não porque foi redirecionado.
+    // O operador ?? (Nullish Coalescing) significa: "Se a expressão da esquerda resultar em nulo ou indefinido, use o valor da direita".
+    // Ou seja, se o usuário foi redirecionado porque tentou acessar uma rota protegida,
+    // ele voltará para lá. Mas se ele acessou a tela de login diretamente (portanto não há state.from),
+    //  ele será enviado para a página padrão ("/", geralmente a Home ou o Dashboard principal).
+    (location.state as { from?: { pathname: string } } | null)?.from?.pathname ?? "/";
 
 
 
@@ -29,7 +43,8 @@ export default function Login() {
       });
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
-      navigate("/");
+      // O parâmetro replace: true substitui a URL atual no histórico do navegador em vez de adicionar uma nova camada (que seria o comportamento padrão).
+      navigate(from, { replace: true });;
     } // Se ocorrer um erro durante a solicitação, ele verifica se é um erro Axios e se o status da resposta é 401 (não autorizado).
     catch (err) {
       if (isAxiosError(err) && err.response?.status === 401) {
