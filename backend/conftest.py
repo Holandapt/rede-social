@@ -1,7 +1,27 @@
 import pytest
 from rest_framework.test import APIClient
 
+from posts.models import Post
 from users.models import User
+
+
+@pytest.fixture
+def outro_user(db, password):
+    # Segundo utilizador, para testar permissões de quem não é o autor
+    return User.objects.create_user(username="Bia", password=password)
+
+
+@pytest.fixture
+def outro_client(outro_user):
+    client = APIClient()
+    client.force_authenticate(user=outro_user)
+    return client
+
+
+@pytest.fixture
+def post(db, user):
+    # Postagem do "Lucas"
+    return Post.objects.create(author=user, content="Post do Lucas")
 
 
 # Usa um hasher rápido só nos testes (o PBKDF2 real é lento de propósito).
