@@ -14,7 +14,7 @@ class AuthorSerializer(serializers.Serializer):
     avatar = serializers.ImageField(read_only=True)
 
 
-class PostSerializer(serializers.Serializer):
+class PostSerializer(serializers.ModelSerializer):
     # Só leitura: o autor é definido na view a partir do utilizador autenticado
     author = AuthorSerializer(read_only=True)
 
