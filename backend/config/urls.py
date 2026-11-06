@@ -18,13 +18,22 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework.routers import SimpleRouter
 
 from users.views.user_views import MeView
 from users.views.register_views import RegisterView
 from users.views.change_password_views import ChangePasswordView
+from posts.views import PostViewSet
+
+# Este código serve para gerar automaticamente as URLs (endpoints) da tua API para o modelo Post
+# Router das postagens: gera /api/posts/ e /api/posts/<id>/
+# É uma classe do DRF desenhada para criar automaticamente URLs padrão compatíveis com o padrão REST.
+router = SimpleRouter()
+# Esta linha regista a PostViewSet
+router.register("posts", PostViewSet, basename="post")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -33,6 +42,7 @@ urlpatterns = [
     path("api/auth/refresh/", TokenRefreshView.as_view()),
     path("api/auth/me/", MeView.as_view()),
     path("api/auth/change-password/", ChangePasswordView.as_view()),
+    path("api/", include(router.urls)),
 ]
 
 # Add static and media URL patterns for development
