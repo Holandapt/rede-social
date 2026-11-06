@@ -18,5 +18,8 @@ class Post(models.Model):
         # Mais recentes primeiro; o id desempata posts criados no mesmo instante
         ordering = ["-created_at", "-id"]
 
+    # O método especial __str__ define como o objeto será exibido quando for convertido para string
+    # Ele retorna o nome/representação do autor seguido por um hífen e pelos primeiros 30 caracteres
+    # do conteúdo (self.content[:30]), servindo como uma prévia legível da postagem.
     def __str__(self):
         return f"{self.author} - {self.content[:30]}"
