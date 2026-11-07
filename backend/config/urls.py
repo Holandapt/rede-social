@@ -23,11 +23,16 @@ from django.urls import include, path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.routers import SimpleRouter
 
+
 from users.views.user_views import MeView
 from users.views.register_views import RegisterView
 from users.views.change_password_views import ChangePasswordView
 from users.views.follow_views import FollowView
+from users.views.user_list_views import UserListView
+from users.views.user_detail_views import UserDetailView
+from users.views.follow_list_views import FollowersListView, FollowingListView
 from posts.views import PostViewSet
+from posts.views import FeedView
 
 # Este código serve para gerar automaticamente as URLs (endpoints) da tua API para o modelo Post
 # Router das postagens: gera /api/posts/ e /api/posts/<id>/
@@ -43,7 +48,20 @@ urlpatterns = [
     path("api/auth/refresh/", TokenRefreshView.as_view()),
     path("api/auth/me/", MeView.as_view()),
     path("api/auth/change-password/", ChangePasswordView.as_view()),
+    path("api/users/", UserListView.as_view(), name="user-list"),
+    path("api/users/<int:pk>/", UserDetailView.as_view(), name="user-detail"),
     path("api/users/<int:pk>/follow/", FollowView.as_view(), name="user-follow"),
+    path(
+        "api/users/<int:pk>/followers/",
+        FollowersListView.as_view(),
+        name="user-followers",
+    ),
+    path(
+        "api/users/<int:pk>/following/",
+        FollowingListView.as_view(),
+        name="user-following",
+    ),
+    path("api/feed/", FeedView.as_view(), name="feed"),
     path("api/", include(router.urls)),
 ]
 
