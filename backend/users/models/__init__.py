@@ -1,3 +1,4 @@
 from .user import User
+from .follow import Follow
 
-__all__ = ["User"]
+__all__ = ["Follow", "User"]
