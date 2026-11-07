@@ -27,6 +27,8 @@ from users.views.user_views import MeView
 from users.views.register_views import RegisterView
 from users.views.change_password_views import ChangePasswordView
 from users.views.follow_views import FollowView
+from users.views.user_list_views import UserListView
+from users.views.user_detail_views import UserDetailView
 from posts.views import PostViewSet
 
 # Este código serve para gerar automaticamente as URLs (endpoints) da tua API para o modelo Post
@@ -43,6 +45,8 @@ urlpatterns = [
     path("api/auth/refresh/", TokenRefreshView.as_view()),
     path("api/auth/me/", MeView.as_view()),
     path("api/auth/change-password/", ChangePasswordView.as_view()),
+    path("api/users/", UserListView.as_view(), name="user-list"),
+    path("api/users/<int:pk>/", UserDetailView.as_view(), name="user-detail"),
     path("api/users/<int:pk>/follow/", FollowView.as_view(), name="user-follow"),
     path("api/", include(router.urls)),
 ]

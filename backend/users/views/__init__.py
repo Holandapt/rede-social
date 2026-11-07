@@ -1,6 +1,15 @@
 from .user_views import MeView
+from .user_list_views import UserListView
+from .user_detail_views import UserDetailView
 from .register_views import RegisterView
 from .change_password_views import ChangePasswordView
 from .follow_views import FollowView
 
-__all__ = ["MeView", "RegisterView", "ChangePasswordView", "FollowView"]
+__all__ = [
+    "MeView",
+    "UserListView",
+    "UserDetailView",
+    "RegisterView",
+    "ChangePasswordView",
+    "FollowView",
+]
