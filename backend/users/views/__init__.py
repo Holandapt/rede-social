@@ -4,6 +4,7 @@ from .user_detail_views import UserDetailView
 from .register_views import RegisterView
 from .change_password_views import ChangePasswordView
 from .follow_views import FollowView
+from .follow_list_views import FollowersListView, FollowingListView
 
 __all__ = [
     "MeView",
@@ -12,4 +13,6 @@ __all__ = [
     "RegisterView",
     "ChangePasswordView",
     "FollowView",
+    "FollowersListView",
+    "FollowingListView",
 ]

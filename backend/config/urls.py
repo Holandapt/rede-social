@@ -29,6 +29,7 @@ from users.views.change_password_views import ChangePasswordView
 from users.views.follow_views import FollowView
 from users.views.user_list_views import UserListView
 from users.views.user_detail_views import UserDetailView
+from users.views.follow_list_views import FollowersListView, FollowingListView
 from posts.views import PostViewSet
 
 # Este código serve para gerar automaticamente as URLs (endpoints) da tua API para o modelo Post
@@ -48,6 +49,16 @@ urlpatterns = [
     path("api/users/", UserListView.as_view(), name="user-list"),
     path("api/users/<int:pk>/", UserDetailView.as_view(), name="user-detail"),
     path("api/users/<int:pk>/follow/", FollowView.as_view(), name="user-follow"),
+    path(
+        "api/users/<int:pk>/followers/",
+        FollowersListView.as_view(),
+        name="user-followers",
+    ),
+    path(
+        "api/users/<int:pk>/following/",
+        FollowingListView.as_view(),
+        name="user-following",
+    ),
     path("api/", include(router.urls)),
 ]
 
