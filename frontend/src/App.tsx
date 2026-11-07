@@ -9,7 +9,6 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       {/* Tudo que estiver dentro desta rota exige sessão autenticada */}
