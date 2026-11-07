@@ -4,6 +4,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import ProtectedRoute from './components/ProtectedRoute'
 import Profile from './pages/Profile'
+import Users from './pages/Users'
+
 
 function App() {
 
@@ -15,6 +17,7 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/users" element={<Users />} />
       </Route>
     </Routes>
   )

@@ -83,6 +83,9 @@ export default function Home() {
       <p>
         <Link to="/profile">O meu perfil</Link>
       </p>
+      <p>
+        <Link to="/users">Descobrir utilizadores</Link>
+      </p>
       <CreatePost onCreated={handleCreated} />
       <h2>Feed</h2>
       {feedErrors.length > 0 && (
