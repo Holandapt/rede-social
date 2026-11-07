@@ -11,7 +11,7 @@ export interface PostAuthor {
 // Uma postagem, tal como a API a devolve.
 export interface Post {
   id: number;
-  author: string;
+  author: PostAuthor;
   content: string;
   created_at: string;
   updated_at: string;
