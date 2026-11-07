@@ -19,3 +19,4 @@ Thumbs.db
 
 # Ficheiros enviados pelos utilizadores
 backend/media/
+backend/staticfiles/

@@ -26,6 +26,7 @@ from rest_framework.routers import SimpleRouter
 from users.views.user_views import MeView
 from users.views.register_views import RegisterView
 from users.views.change_password_views import ChangePasswordView
+from users.views.follow_views import FollowView
 from posts.views import PostViewSet
 
 # Este código serve para gerar automaticamente as URLs (endpoints) da tua API para o modelo Post
@@ -42,6 +43,7 @@ urlpatterns = [
     path("api/auth/refresh/", TokenRefreshView.as_view()),
     path("api/auth/me/", MeView.as_view()),
     path("api/auth/change-password/", ChangePasswordView.as_view()),
+    path("api/users/<int:pk>/follow/", FollowView.as_view(), name="user-follow"),
     path("api/", include(router.urls)),
 ]
 
