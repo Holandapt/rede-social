@@ -18,7 +18,7 @@ class FollowView(APIView):
 
     def post(self, request, pk):
         # Procura na base de dados o utilizador cujo ID (pk) veio indicado no URL
-        alvo = get_object_or_404(User, pk)
+        alvo = get_object_or_404(User, pk=pk)
 
         if alvo == request.user:
             return Response(
