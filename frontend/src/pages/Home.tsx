@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../api/client";
 import type { User } from "../types/user";
+import CreatePost from "../components/CreatePost";
+
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -30,6 +32,7 @@ export default function Home() {
   return (
     <main>
       <h1>Olá, {user.username}!</h1>
+      <CreatePost  />
       <p>O feed de notícias aparecerá aqui.</p>
       <p>
         <Link to="/profile">O meu perfil</Link>
