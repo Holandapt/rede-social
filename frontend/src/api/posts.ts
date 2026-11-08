@@ -17,3 +17,22 @@ export async function getFeed(page: number): Promise<Paginated<Post>> {
   const { data } = await api.get<Paginated<Post>>("/feed/", { params: { page } });
   return data;
 }
+
+// Estado de curtida de um post, tal como o back-end o devolve.
+export interface LikeState {
+  liked_by_me: boolean;
+  likes_count: number;
+}
+
+
+// Curte um post (idempotente: curtir duas vezes não duplica).
+export async function likePost(postId: number): Promise<LikeState> {
+  const { data } = await api.post<LikeState>(`/posts/${postId}/like/`);
+  return data;
+}
+
+// Tira a curtida de um post.
+export async function unlikePost(postId: number): Promise<LikeState> {
+  const { data } = await api.delete<LikeState>(`/posts/${postId}/like/`);
+  return data;
+}
