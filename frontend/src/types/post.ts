@@ -17,6 +17,7 @@ export interface Post {
   updated_at: string;
   likes_count: number;
   liked_by_me: boolean;
+  comments_count: number;
 }
 
 // Resposta paginada global do DRF (PageNumberPagination).
