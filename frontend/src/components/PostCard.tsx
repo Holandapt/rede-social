@@ -1,5 +1,6 @@
 import type { Post } from "../types/post";
 import LikeButton from "./LikeButton";
+import CommentSection from "./CommentSection";
 
 interface Props {
   post: Post;
@@ -36,6 +37,7 @@ export default function PostCard({ post }: Props) {
           initialLiked={post.liked_by_me}
           initialCount={post.likes_count}
         />
+        <CommentSection postId={post.id} initialCount={post.comments_count}/>
       </footer>
     </article>
   );

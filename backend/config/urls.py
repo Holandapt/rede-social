@@ -34,6 +34,7 @@ from users.views.follow_list_views import FollowersListView, FollowingListView
 from posts.views import PostViewSet
 from posts.views import FeedView
 from posts.views import LikeView
+from posts.views import CommentListCreateView
 
 # Este código serve para gerar automaticamente as URLs (endpoints) da tua API para o modelo Post
 # Router das postagens: gera /api/posts/ e /api/posts/<id>/
@@ -64,6 +65,11 @@ urlpatterns = [
     ),
     path("api/feed/", FeedView.as_view(), name="feed"),
     path("api/posts/<int:pk>/like/", LikeView.as_view(), name="post-like"),
+    path(
+        "api/posts/<int:pk>/comments/",
+        CommentListCreateView.as_view(),
+        name="post-comments",
+    ),
     path("api/", include(router.urls)),
 ]
 

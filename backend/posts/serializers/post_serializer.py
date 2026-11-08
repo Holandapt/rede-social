@@ -19,6 +19,7 @@ class PostSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
     likes_count = serializers.SerializerMethodField()
     liked_by_me = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -30,6 +31,7 @@ class PostSerializer(serializers.ModelSerializer):
             "updated_at",
             "likes_count",
             "liked_by_me",
+            "comments_count",
         ]
         read_only_fields = ["id", "created_at", "updated_at"]
 
@@ -50,3 +52,7 @@ class PostSerializer(serializers.ModelSerializer):
         # para retornar apenas um booleano (True/False) de forma super rápida,
         # sem precisar carregar os objetos inteiros para a memória RAM do Python.
         return post.likes.filter(user=request.user).exists()
+
+    def get_comments_count(self, post):
+        # Comentários recebidos pelo post (related_name "comments" no modelo Comment)
+        return post.comments.count()
