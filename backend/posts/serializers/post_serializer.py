@@ -17,8 +17,36 @@ class AuthorSerializer(serializers.Serializer):
 class PostSerializer(serializers.ModelSerializer):
     # Só leitura: o autor é definido na view a partir do utilizador autenticado
     author = AuthorSerializer(read_only=True)
+    likes_count = serializers.SerializerMethodField()
+    liked_by_me = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
-        fields = ["id", "author", "content", "created_at", "updated_at"]
+        fields = [
+            "id",
+            "author",
+            "content",
+            "created_at",
+            "updated_at",
+            "likes_count",
+            "liked_by_me",
+        ]
         read_only_fields = ["id", "created_at", "updated_at"]
+
+    def get_likes_count(self, post):
+        # Curtidas recebidas pelo post (related_name "likes" no modelo Like)
+        return post.likes.count()
+
+    def get_liked_by_me(self, post):
+        # O utilizador autenticado vem do contexto que a view passa ao serializer,
+        # precisamos do objeto request, que é obtido através do dicionário .context.
+        request = self.context.get("request")
+        # Se a requisição veio de algum lugar onde o request não foi passado para o serializer
+        # (ou se o usuário é um visitante anônimo/não logado), ele retorna False imediatamente
+        # em vez de quebrar a aplicação.
+        if request is None or not request.user.is_authenticated:
+            return False
+        # Uma ótima prática de performance no Django, pois ele diz ao banco de dados
+        # para retornar apenas um booleano (True/False) de forma super rápida,
+        # sem precisar carregar os objetos inteiros para a memória RAM do Python.
+        return post.likes.filter(user=request.user).exists()
