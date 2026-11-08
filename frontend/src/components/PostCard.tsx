@@ -1,4 +1,5 @@
 import type { Post } from "../types/post";
+import LikeButton from "./LikeButton";
 
 interface Props {
   post: Post;
@@ -29,6 +30,13 @@ export default function PostCard({ post }: Props) {
       </header>
       {/* pre-wrap mantém as quebras de linha que o autor escreveu */}
       <p style={{ whiteSpace: "pre-wrap" }}>{post.content}</p>
+      <footer>
+        <LikeButton
+          postId={post.id}
+          initialLiked={post.liked_by_me}
+          initialCount={post.likes_count}
+        />
+      </footer>
     </article>
   );
 }
