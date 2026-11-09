@@ -90,7 +90,8 @@ export default function Users() {
               )}{" "}
               <strong>{u.name || u.username}</strong> <small>@{u.username}</small>{" "}
               <small>
-                {u.followers_count} seguidores · {u.following_count} a seguir
+                <Link to={`/users/${u.id}/followers`}>{u.followers_count} seguidores</Link> ·{" "}
+                <Link to={`/users/${u.id}/following`}>{u.following_count} a seguir</Link>
               </small>{" "}
               <FollowButton
                 userId={u.id}

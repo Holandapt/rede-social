@@ -5,6 +5,7 @@ import Register from './pages/Register'
 import ProtectedRoute from './components/ProtectedRoute'
 import Profile from './pages/Profile'
 import Users from './pages/Users'
+import FollowList from './pages/FollowList'
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/users/:id/followers" element={<FollowList tipo="followers" />} />
+        <Route path="/users/:id/following" element={<FollowList tipo="following" />} />
       </Route>
     </Routes>
   )

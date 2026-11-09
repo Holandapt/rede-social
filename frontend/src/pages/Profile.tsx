@@ -170,6 +170,10 @@ export default function Profile() {
           Utilizador: <strong>{user.name}</strong>
           · E-mail: <strong>{user.email}</strong>
         </p>
+        <p>
+          <Link to={`/users/${user.id}/followers`}>{user.followers_count} seguidores</Link> ·{" "}
+          <Link to={`/users/${user.id}/following`}>{user.following_count} a seguir</Link>
+        </p>
         <form onSubmit={handleProfileSubmit}>
           {shownAvatar ? (
             <img src={shownAvatar} alt="Avatar" width={120} height={120} style={{ objectFit: "cover", borderRadius: "50%" }} />
