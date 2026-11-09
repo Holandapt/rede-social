@@ -89,44 +89,51 @@ export default function Home() {
   if (!user) return <p> A carregar...</p>;
 
   return (
-    <main>
-      <h1>Olá, {user.username}!</h1>
-      <p>
-        <Link to="/profile">O meu perfil</Link>
-      </p>
-      <p>
-        <Link to="/users">Descobrir utilizadores</Link>
-      </p>
-      <CreatePost onCreated={handleCreated} />
-      <h2>Feed</h2>
-      {feedErrors.length > 0 && (
-        <ul role="alert">
-          {feedErrors.map((message) => (
-            <li key={message}>{message}</li>
-          ))}
-        </ul>
-      )}
-      {loadingFeed ? (
-        <p>A carregar o feed...</p>
-      ) : posts.length === 0 ? (
-        <p>Ainda não há publicações. Publica algo ou segue outros utilizadores.</p>
-      ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {posts.map((post) => (
-            <li key={post.id}>
-              <PostCard onUpdated={handleUpdated} onDeleted={handleDeleted} currentUserId={user.id} post={post} />
-            </li>
-          ))}
-        </ul>
-      )}
-      {hasMore && (
-        <button onClick={handleLoadMore} disabled={loadingMore}>
-          {loadingMore ? "A carregar..." : "Carregar mais"}
-        </button>
-      )}
-      <p>
-        <button onClick={handleLogout}>Sair</button>
-      </p>
+    <main className="min-h-screen bg-gray-100 p-4 md:p-6 flex justify-center">
+      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-[1fr_3fr_1fr] gap-6 items-start">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 space-y-4 sticky top-6">
+          <h1>Olá, {user.username}!</h1>
+          <p>
+            <Link className="mx-auto block text-center cursor-pointer rounded-full bg-gray-50 px-4 py-1.5 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-100 w-full" to="/profile">O meu perfil</Link>
+          </p>
+          <p>
+            <Link className="mx-auto block text-center cursor-pointer rounded-full bg-gray-50 px-4 py-1.5 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-100 w-full" to="/users">Descobrir utilizadores</Link>
+          </p>
+        </div>
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 space-y-6">
+        <CreatePost onCreated={handleCreated} />
+        {feedErrors.length > 0 && (
+          <ul role="alert">
+            {feedErrors.map((message) => (
+              <li key={message}>{message}</li>
+            ))}
+          </ul>
+        )}
+        {loadingFeed ? (
+          <p>A carregar o feed...</p>
+        ) : posts.length === 0 ? (
+          <p>Ainda não há publicações. Publica algo ou segue outros utilizadores.</p>
+        ) : (
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {posts.map((post) => (
+              <li key={post.id}>
+                <PostCard onUpdated={handleUpdated} onDeleted={handleDeleted} currentUserId={user.id} post={post} />
+              </li>
+            ))}
+          </ul>
+        )}
+        {hasMore && (
+          <button onClick={handleLoadMore} disabled={loadingMore}>
+            {loadingMore ? "A carregar..." : "Carregar mais"}
+          </button>
+        )}
+        </div>
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 sticky top-6 text-center">
+          <p>
+            <button className="mx-auto block cursor-pointer rounded-full bg-gray-50 px-4 py-1.5 text-xs font-bold text-gray-600 transition-colors hover:bg-gray-100 w-full" onClick={handleLogout}>Sair</button>
+          </p>
+        </div>
+      </div>
     </main>
   );
 }
