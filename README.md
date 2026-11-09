@@ -7,14 +7,21 @@ Projeto final do curso Full Stack Python: uma rede social com API em Django REST
 - Aplicação: https://rede-social-lac.vercel.app
 - API: https://holandaptr.pythonanywhere.com/api/
 
+## Como usar a aplicação
+
+1. Criar conta na página de registo e entrar com o utilizador e a palavra-passe.
+2. Na página inicial, escrever e publicar um texto. Nos teus posts aparecem os botões **Editar** e **Apagar**.
+3. Em **Descobrir utilizadores**, seguir outras pessoas. Os números de seguidores e de seguidos são links para as respetivas listas (também em **O meu perfil**).
+4. O feed mostra as publicações de quem segues e as tuas. Cada post tem curtidas e comentários.
+5. Em **O meu perfil**, alterar o nome, a foto (até 2 MB) e a palavra-passe. Nenhuma alteração é obrigatória.
+
 ## Funcionalidades
 
 - Registo, login (JWT com refresh automático) e alteração de palavra-passe
 - Perfil próprio com nome e avatar (até 2 MB)
-- Publicações de texto (até 500 caracteres): só o autor edita e apaga
-- Descobrir utilizadores, seguir e deixar de seguir
-- Perfil público com número de seguidores e de seguidos, e listas de seguidores e seguidos (API)
-- Feed com as publicações próprias e de quem se segue, paginado
+- Publicações de texto (até 500 caracteres): criar, editar e apagar na própria interface; só o autor edita e apaga
+- Número de seguidores e de seguidos de cada utilizador, com ecrãs para as listas de seguidores e de seguidos
+- Feed com as publicações de quem se segue e as do próprio utilizador, paginado
 - Curtidas nas publicações (uma por utilizador) com contagem
 - Comentários nas publicações, paginados
 
@@ -28,6 +35,11 @@ Projeto final do curso Full Stack Python: uma rede social com API em Django REST
 
 - `backend/`: API em Django REST (projeto `config/`, apps `users/` e `posts/`)
 - `frontend/`: aplicação em React
+
+## Requisitos
+
+- Python 3.12 ou superior e Poetry
+- Node.js (desenvolvido com a v24) e npm
 
 ## Como correr localmente
 
