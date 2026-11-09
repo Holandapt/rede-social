@@ -96,7 +96,7 @@ export default function CommentSection({postId, initialCount}:Props){
         <div>
           {loading && comments.length === 0 && <p>A carregar...</p>}
           {!loading && page > 0 && comments.length === 0 && (
-            <p>Ainda nao ha comentários</p>
+            <p>Ainda não há comentários.</p>
           )}
           <ul>
             {comments.map((c) => {
