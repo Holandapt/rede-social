@@ -36,3 +36,14 @@ export async function unlikePost(postId: number): Promise<LikeState> {
   const { data } = await api.delete<LikeState>(`/posts/${postId}/like/`);
   return data;
 }
+
+// Edita o texto de um post próprio (PATCH parcial) e devolve-o atualizado.
+export async function updatePost(postId: number, content: string): Promise<Post> {
+  const { data } = await api.patch<Post>(`/posts/${postId}/`, { content });
+  return data;
+}
+
+// Apaga um post próprio (o back-end responde 204, sem corpo).
+export async function deletePost(postId: number): Promise<void> {
+  await api.delete(`/posts/${postId}/`);
+}
