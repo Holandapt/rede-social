@@ -7,6 +7,8 @@ export interface User {
   email: string;
   name: string;
   avatar: string | null; // URL do avatar do usuário, pode ser nulo se o usuário não tiver um avatar.
+  followers_count: number; // quantas pessoas seguem este utilizador
+  following_count: number; // quantas pessoas este utilizador segue
 }
 
 // Tipo que representa os dados de autenticação do usuário.
