@@ -60,25 +60,27 @@ export default function Login() {
   }
 
   return (
-    <main>
-      <h1>Entrar</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Utilizador:
-          <input value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="username" required/>
-        </label>
-        <label>
-          Palavra-passe:
-          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" autoComplete="current-password" required/>
-        </label>
-        { error && <p role="alert">{error}</p>}
-        < button type="submit" disabled={loading}>
-          {loading ? "A entrar..." : "Entrar"}
-        </button>
-      </form>
-      <p>
-        Ainda não tem uma conta? <Link to="/register">Registe-se</Link>
-      </p>
+    <main className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
+      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+        <h1>Entrar</h1>
+        <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Utilizador:
+            <input className="w-full mb-2 rounded-lg border border-gray-300 px-2 py-1 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200" value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="username" required/>
+          </label>
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Palavra-passe:
+            <input className="w-full mb-2 rounded-lg border border-gray-300 px-4 py-1 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200" value={password} onChange={(e) => setPassword(e.target.value)} type="password" autoComplete="current-password" required/>
+          </label>
+          { error && <p role="alert">{error}</p>}
+          < button className="mx-auto block rounded-md bg-transparent-600 cursor-pointer border border-solid border-gray-200  px-8 py-1.5 text-xs font-semibold text-black transition-colors hover:bg-gray-200 active:bg-gray-600" type="submit" disabled={loading}>
+            {loading ? "A entrar..." : "Entrar"}
+          </button>
+        </form>
+        <p className="mt-6 text-center text-sm text-gray-600">
+          Ainda não tem uma conta? <Link className="font-semibold text-gray-800 hover:underline" to="/register">Registe-se</Link>
+        </p>
+      </div>
     </main>
   )
 }

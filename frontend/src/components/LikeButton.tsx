@@ -38,7 +38,7 @@ export default function LikeButton({postId, initialLiked, initialCount}: Props){
 
   return (
     <>
-      <button onClick={handleClick} disabled={busy} aria-pressed={liked}>
+      <button className="rounded-full bg-transparent px-2 py-1 text-xs font-bold text-gray transition-colors hover:bg-gray-600 hover:text-white disabled:opacity-50 cursor-pointer" onClick={handleClick} disabled={busy} aria-pressed={liked}>
           {liked ? "Descurtir" : "Curtir"} ({count})
       </button>
       {error && <small role="alert">{error}</small>}

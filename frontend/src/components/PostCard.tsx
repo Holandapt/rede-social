@@ -66,61 +66,71 @@ export default function PostCard({ post, currentUserId, onUpdated, onDeleted }: 
   }
 
   return (
-    <article>
-      <header>
-        {author.avatar && (
-          <img
-            src={author.avatar}
-            alt={`Avatar de ${nome}`}
-            width={40}
-            height={40}
-            style={{ objectFit: "cover", borderRadius: "50%" }}
-          />
-        )}
-        <strong>{nome}</strong>{" "}
-        <small>
-          @{author.username} · {new Date(post.created_at).toLocaleString("pt-PT")}
-        </small>
+    <article className="p-4 bg-white border-b border-gray-100 transition-colors hover:bg-gray-50/50">
+      <header className="flex items-start justify-between mb-3">
+        <div className="flex items-center space-x-3">
+          {author.avatar && (
+            <img
+              className="w-10 h-10 rounded-full object-cover"
+              src={author.avatar}
+              alt={`Avatar de ${nome}`}
+              width={40}
+              height={40}
+              style={{ objectFit: "cover", borderRadius: "50%" }}
+            />
+          )}
+          <div className="flex flex-col">
+            <strong>{nome}</strong>{" "}
+            <small>
+              @{author.username} · {new Date(post.created_at).toLocaleString("pt-PT")}
+            </small>
+          </div>
+        </div>
         {isOwn && !editing && (
           <>
+          <div className="flex space-x-2">
             {" "}
-            <button onClick={handleStartEdit} disabled={busy}>
+            <button className="rounded-full bg-transparent px-2 py-1 text-xs font-bold text-gray transition-colors hover:bg-gray-600 hover:text-white disabled:opacity-50 cursor-pointer" onClick={handleStartEdit} disabled={busy}>
               Editar
             </button>{" "}
-            <button onClick={handleDelete} disabled={busy}>
+            <button className="rounded-full bg-transparent px-2 py-1 text-xs font-bold text-gray transition-colors hover:bg-gray-600 hover:text-white disabled:opacity-50 cursor-pointer" onClick={handleDelete} disabled={busy}>
               Apagar
             </button>
+          </div>
           </>
         )}
       </header>
       {errors.length > 0 && (
-        <ul role="alert">
+        <ul role="alert" className="mb-3 rounded-lg bg-red-50 p-2 text-xs text-red-600 space-y-1">
           {errors.map((message) => (
             <li key={message}>{message}</li>
           ))}
         </ul>
       )}
-      {editing ? (
-        <form onSubmit={handleSave}>
-          <textarea
-            value={texto}
-            onChange={(e) => setTexto(e.target.value)}
-            maxLength={500}
-            rows={3}
-            required
-          />
-          <button type="submit" disabled={busy || texto.trim() === ""}>
-            {busy ? "A guardar..." : "Guardar"}
-          </button>{" "}
-          <button type="button" onClick={handleCancel} disabled={busy}>
-            Cancelar
-          </button>
-        </form>
-      ) : (
-        /* pre-wrap mantém as quebras de linha que o autor escreveu */
-        <p style={{ whiteSpace: "pre-wrap" }}>{post.content}</p>
-      )}
-      <footer>
+      <div className="mb-3">
+        {editing ? (
+          <form className="space-y-3" onSubmit={handleSave}>
+            <textarea
+              className="w-full rounded-xl border border-gray-200 bg-gray-50/50 p-3 text-sm text-gray-800 focus:border-gray-500 focus:bg-gray focus:outline-none focus:ring-2 focus:ring-gray-100 resize-none"
+              value={texto}
+              onChange={(e) => setTexto(e.target.value)}
+              maxLength={500}
+              rows={3}
+              required
+            />
+            <button className="rounded-full bg-gray-500 px-4 py-1.5 text-xs font-bold text-white transition-colors hover:bg-gray-600 disabled:opacity-50 cursor-pointer" type="submit" disabled={busy || texto.trim() === ""}>
+              {busy ? "A guardar..." : "Guardar"}
+            </button>{" "}
+            <button type="button" className="rounded-full bg-gray-500 px-4 py-1.5 text-xs font-bold text-white transition-colors hover:bg-gray-600 disabled:opacity-50 cursor-pointer" onClick={handleCancel} disabled={busy}>
+              Cancelar
+            </button>
+          </form>
+        ) : (
+          /* pre-wrap mantém as quebras de linha que o autor escreveu */
+          <p style={{ whiteSpace: "pre-wrap" }}>{post.content}</p>
+        )}
+      </div>
+      <footer className="flex items-center space-x-6 pt-2 text-gray-500">
         <LikeButton
           postId={post.id}
           initialLiked={post.liked_by_me}

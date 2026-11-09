@@ -89,7 +89,7 @@ export default function CommentSection({postId, initialCount}:Props){
 
   return (
     <section>
-      <button onClick={toggle} aria-expanded={open}>
+      <button className="rounded-full bg-transparent px-2 py-1 text-xs font-bold text-gray transition-colors hover:bg-gray-600 hover:text-white disabled:opacity-50 cursor-pointer" onClick={toggle} aria-expanded={open}>
         Comentários ({count})
       </button>
       {open && (
