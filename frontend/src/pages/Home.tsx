@@ -56,6 +56,17 @@ export default function Home() {
     setPosts((atuais) => [post, ...atuais.filter((p) => p.id !== post.id)]);
   }
 
+    // Depois de editar, troca o post na lista pela versão devolvida pela API.
+  function handleUpdated(post: Post) {
+    setPosts((atuais) => atuais.map((p) => (p.id === post.id ? post : p)));
+  }
+
+
+  // Depois de apagar, tira o post da lista.
+  function handleDeleted(postId: number) {
+    setPosts((atuais) => atuais.filter((p) => p.id !== postId));
+  }
+
   // Carrega a página seguinte e acrescenta ao fim, ignorando posts que já temos.
   async function handleLoadMore() {
     setFeedErrors([]);
@@ -103,7 +114,7 @@ export default function Home() {
         <ul style={{ listStyle: "none", padding: 0 }}>
           {posts.map((post) => (
             <li key={post.id}>
-              <PostCard post={post} />
+              <PostCard onUpdated={handleUpdated} onDeleted={handleDeleted} currentUserId={user.id} post={post} />
             </li>
           ))}
         </ul>
