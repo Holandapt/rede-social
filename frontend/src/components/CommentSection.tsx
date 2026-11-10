@@ -88,57 +88,65 @@ export default function CommentSection({postId, initialCount}:Props){
   }
 
   return (
-    <section>
-      <button onClick={toggle} aria-expanded={open}>
-        Comentários ({count})
+    <section className="w-full mt-2">
+      <button className="rounded-full bg-transparent px-2 py-1 text-xs font-bold text-gray transition-colors hover:bg-gray-600 hover:text-white disabled:opacity-50 cursor-pointer" onClick={toggle} aria-expanded={open}>
+          Comentários ({count})
       </button>
       {open && (
-        <div>
-          {loading && comments.length === 0 && <p>A carregar...</p>}
+        <div className="mt-3 space-y-3 pt-3 border-t border-gray-100">
+          {loading && comments.length === 0 && <p className="text-xs text-gray-400 text-center py-2">A carregar...</p>}
           {!loading && page > 0 && comments.length === 0 && (
-            <p>Ainda não há comentários.</p>
+            <p className="text-xs text-gray-400 text-center py-2">Ainda não há comentários.</p>
           )}
-          <ul>
+          <ul className="space-y-3 divide-y divide-gray-50">
             {comments.map((c) => {
               const nome = c.author.name || c.author.username;
               return (
-                <li key={c.id}>
-                  <strong>{nome}</strong>{" "}
-                  <small>
-                    @{c.author.username} ·{" "}
-                    { new Date(c.created_at).toLocaleString("pt-PT")}
-                  </small>
+                <li key={c.id} className="pt-3 first:pt-0">
+                  <div className="flex items-baseline space-x-2">
+                    <strong className="font-bold text-xs text-gray-900">{nome}</strong>{" "}
+                    <small className="text-[11px] text-gray-400">
+                      @{c.author.username}
+                      { new Date(c.created_at).toLocaleString("pt-PT")}
+                    </small>
+                  </div>
                   {/* pre-wrap mantém as quebras de linha que o autor escreveu */}
-                  <p style={{whiteSpace: "pre-wrap"}}>{c.content}</p>
+                  <p  className="text-xs text-gray-700 mt-1 whitespace-pre-wrap leading-relaxed" style={{whiteSpace: "pre-wrap"}}>{c.content}</p>
                 </li>
               )
             })}
           </ul>
           {hasMore && (
-            <button onClick={() => void loadPage(page + 1)} disabled={loading}>
-              {loading ? "..." : "Carregar mais comentários"}
-            </button>
+            <div>
+              <button className="text-xs font-semibold text-gray-600 hover:underline disabled:opacity-50 cursor-pointer" onClick={() => void loadPage(page + 1)} disabled={loading}>
+                {loading ? "..." : "Carregar mais comentários"}
+              </button>
+            </div>
           )}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="mt-4 space-y-2 bg-gray-50/70 p-3 rounded-xl border border-gray-100">
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
               maxLength={MAX_LENGTH}
               rows={2}
               aria-label="Novo comentário"
+              className="w-full resize-none rounded-lg border border-gray-200 bg-white p-2.5 text-xs text-gray-800 focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-200"
             />
-            <small>
-              {text.length}/{MAX_LENGTH}
-            </small>{" "}
+            <div className="flex items-center justify-between">
+              <small className={`text-[11px] ${text.length >= MAX_LENGTH ? 'text-red-500 font-bold' : 'text-gray-400'}`}>
+                {text.length}/{MAX_LENGTH}
+              </small>{" "}
+            </div>
             <button
               type="submit"
               disabled={sending || loading || !text.trim()}
+              className="rounded-full bg-gray-500 px-4 py-1.5 text-xs font-bold text-white transition-colors hover:bg-gray-600 disabled:opacity-50 cursor-pointer"
             >
               {sending ? "..." : "Comentar"}
             </button>
           </form>
-          {notice && <small>{notice}</small>}
-          {error && <small role="alert"> {error}</small>}
+          {notice && <small className="text-xs text-green-600 font-medium">{notice}</small>}
+          {error && <small role="alert" className="text-xs text-red-600"> {error}</small>}
         </div>
       )}
     </section>

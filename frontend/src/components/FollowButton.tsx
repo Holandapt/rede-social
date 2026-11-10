@@ -31,7 +31,7 @@ export default function FollowButton({ userId, following, onChange }: Props) {
 
   return (
     <>
-      <button onClick={handleClick} disabled={busy}>
+      <button className="rounded-full bg-transparent px-2 py-1 text-xs font-bold text-gray transition-colors hover:bg-gray-600 hover:text-white disabled:opacity-50 cursor-pointer" onClick={handleClick} disabled={busy}>
         {busy ? "..." : following ? "Deixar de seguir" : "Seguir"}
       </button>
       {error && <small role="alert"> {error}</small>}
