@@ -58,45 +58,60 @@ export default function FollowList({tipo}:Props) {
   }
 
   return (
-    <main>
-      <p>
-        <Link to="/">← Voltar</Link>
-      </p>
-      <h1>{tipo === "followers" ? "Seguidores":"A seguir"}</h1>
-      {errors.length > 0 && (
-        <ul role="alert">
-          {errors.map((message)=>(
-            <li key={message}>{message}</li>
-          ))}
-        </ul>
-      )}
-      {loading ? (
-        <p>A carregar...</p>
-      ): users.length === 0 ? (
+    <main className="min-h-screen bg-gray-100 flex justify-center p-4">
+      <div className="p-6 space-y-8 flex-1">
         <p>
-          {tipo === "followers" ? "Ainda não tem seguidores": "Ainda não segue ninguém"}
+          <Link className="text-gray-600 hover:text-gray-900 font-semibold text-sm" to="/profile">← Voltar</Link>
         </p>
-        ): (
-          <ul style={{listStyle: "none", padding:0}}>
-            {users.map((u)=>(
-              <li key={u.id}>
-                {u.avatar && (
-                  <img src={u.avatar}
-                  alt={`Avatar de ${u.name || u.username}`}
-                  width={40}
-                  height={40}
-                  style={{ objectFit: "cover", borderRadius: "50%" }}/>
-                )}{" "}
-                <strong>{u.name || u.username}</strong><small>@{u.username}</small>
-              </li>
-            ))}
+        <h1 className="text-lg font-bold text-gray-900">{tipo === "followers" ? "Seguidores":"A seguir"}</h1>
+        <div className="p-4 flex-1 flex flex-col">
+          {errors.length > 0 && (
+            <ul role="alert" className="mb-4 rounded-lg bg-red-50 p-3 text-xs text-red-600 space-y-1">
+              {errors.map((message)=>(
+                <li key={message}>{message}</li>
+              ))}
             </ul>
-        )}
-        {hasMore && (
-          <button onClick={handleLoadMore} disabled={loading}>
-            {loadingMore ? "A carregar": "Carregar mais"}
-          </button>
-        )}
+          )}
+          {loading ? (
+            <div className="p-8 text-center text-sm text-gray-400">
+              <p>A carregar...</p>
+            </div>
+          ): users.length === 0 ? (
+            <div className="p-8 text-center text-sm text-gray-400">
+              <p>
+                {tipo === "followers" ? "Ainda não tem seguidores": "Ainda não segue ninguém"}
+              </p>
+            </div>
+            ): (
+              <ul className="divide-y divide-gray-100" style={{listStyle: "none", padding:0}}>
+                {users.map((u)=>(
+                  <li key={u.id} className="py-4 px-2 flex items-center justify-center hover:bg-gray-50/50 transition-colors rounded-xl">
+                    <div className="flex items-center space-x-3 min-w-0">
+                      {u.avatar && (
+                        <img src={u.avatar}
+                        alt={`Avatar de ${u.name || u.username}`}
+                        width={40}
+                        height={40}
+                        className="w-10 h-10 rounded-full object-cover border border-gray-200 shrink-0"
+                        style={{ objectFit: "cover", borderRadius: "50%" }}/>
+                      )}
+                      <div>
+                        <strong className="font-bold text-sm mr-4 text-gray-900 truncate">{u.name || u.username}</strong><small className="text-xs text-gray-500 truncate">@{u.username}</small>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+                </ul>
+            )}
+            {hasMore && (
+              <div>
+                <button onClick={handleLoadMore} disabled={loading}>
+                  {loadingMore ? "A carregar": "Carregar mais"}
+                </button>
+              </div>
+            )}
+        </div>
+      </div>
     </main>
   )
 }
